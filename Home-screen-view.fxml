@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #141414;" styleClass="nav-bar" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="logoImageView" fitHeight="59.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+                <Label prefHeight="43.0" prefWidth="125.0" styleClass="logo-text" text="RepLog" textFill="#e1b531">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font></Label>
+                <Region prefHeight="60.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="homeButton" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: e1b531;" styleClass="primary-button" text="Home" textFill="#e1b531">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Button>
+                <Button fx:id="historyButton" mnemonicParsing="false" style="-fx-border-color: e1b531; -fx-background-color: #252525;" styleClass="primary-button" text="History" textFill="#e1b531">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="25.0" />
+               </HBox.margin></Button>
+                <Button fx:id="logoutButton" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: e1b531;" styleClass="secondary-button" text="Logout" textFill="#e1b531">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER_LEFT" spacing="6.0" style="-fx-background-color: #252525;">
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <children>
+                <Label fx:id="welcomeLabel" styleClass="page-title" text="Welcome Back!" textFill="#e1b531">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-40.0" />
+               </VBox.margin></Label>
+                <Label fx:id="usernameLabel" minWidth="-Infinity" styleClass="page-subtitle" text="Users Name" textFill="#e1b531" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="80.0" top="-10.0" />
+               </VBox.margin></Label>
+                <HBox spacing="20.0">
+                    <VBox.margin>
+                        <Insets top="14.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button fx:id="pushButton" mnemonicParsing="false" prefHeight="140.0" prefWidth="260.0" style="-fx-background-color: #323232; -fx-border-color: e1b531;" styleClass="card-button">
+                            <graphic>
+                                <VBox alignment="TOP_LEFT" prefHeight="100.0" prefWidth="220.0" spacing="6.0" style="-fx-background-color: #323232;">
+                                    <children>
+                                        <Label styleClass="card-title" text="Push" textFill="#e1b531">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font></Label>
+                                        <Label styleClass="card-subtitle" text="Chest + Shoulders" textFill="#e1b531">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></Label>
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="pullButton" mnemonicParsing="false" prefHeight="140.0" prefWidth="260.0" style="-fx-background-color: #323232; -fx-border-color: e1b531;" styleClass="card-button">
+                            <graphic>
+                                <VBox alignment="TOP_LEFT" prefHeight="100.0" prefWidth="220.0" spacing="6.0" style="-fx-background-color: #323232;">
+                                    <children>
+                                        <Label styleClass="card-title" text="Pull" textFill="#e1b531">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font></Label>
+                                        <Label styleClass="card-subtitle" text="Back + Biceps" textFill="#e1b531">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></Label>
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="legsButton" mnemonicParsing="false" prefHeight="140.0" prefWidth="260.0" style="-fx-border-color: e1b531; -fx-background-color: #323232;" styleClass="card-button">
+                            <graphic>
+                                <VBox alignment="TOP_LEFT" prefHeight="100.0" prefWidth="220.0" spacing="6.0">
+                                    <children>
+                                        <Label styleClass="card-title" text="Legs" textFill="#e1b531">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font></Label>
+                                        <Label styleClass="card-subtitle" text="Quads + Hamstrings" textFill="#e1b531">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></Label>
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
