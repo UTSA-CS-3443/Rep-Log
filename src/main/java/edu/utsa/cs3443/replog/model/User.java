@@ -1,3 +1,5 @@
+package edu.utsa.cs3443.replog.model;
+
 public class User {
     private string username;
     private int userId;
