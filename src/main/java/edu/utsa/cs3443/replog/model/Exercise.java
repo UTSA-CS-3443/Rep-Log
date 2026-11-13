@@ -1,3 +1,5 @@
+package edu.utsa.cs3443.replog.model;
+
 public class Exercise {
     private int exerciseId;
     private String name;
