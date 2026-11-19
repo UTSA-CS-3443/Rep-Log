@@ -5,8 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #141414; -fx-border-color: e1b531;" styleClass="root-pane" stylesheets="@replog.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:controller="edu.utsa.cs3443.replog.LoginController" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #141414; -fx-border-color: e1b531;" styleClass="root-pane" stylesheets="@replog.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="542.0" prefHeight="601.0" prefWidth="542.0" spacing="12.0" style="-fx-background-color: #252525; -fx-border-color: e1b531;" styleClass="form-card">
             <padding>
@@ -44,11 +43,11 @@
                     </children>
                 </VBox>
                 <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" />
-                <Button fx:id="loginButton" defaultButton="true" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: e1b531;" styleClass="primary-button" text="Log In" textFill="#e1b531">
+                <Button fx:id="loginButton" defaultButton="true" maxWidth="250.0" mnemonicParsing="false" onAction="#onLoginClicked" style="-fx-background-color: #323232; -fx-border-color: e1b531;" styleClass="primary-button" text="Log In" textFill="#e1b531">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
-                <Button fx:id="addAccountButton" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: e1b531;" styleClass="secondary-button" text="Create Account" textFill="#e1b531">
+                <Button fx:id="addAccountButton" maxWidth="250.0" mnemonicParsing="false" onAction="#onAddAccountClicked" style="-fx-background-color: #323232; -fx-border-color: e1b531;" styleClass="secondary-button" text="Create Account" textFill="#e1b531">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
