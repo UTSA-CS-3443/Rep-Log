@@ -13,6 +13,12 @@ public class WorkoutSession {
     private ArrayList<SetEntry> sets;
 
     public WorkoutSession(int sessionId, int workoutId, String workoutName, LocalDate date) {
+        if (workoutName == null || workoutName.isBlank()) {
+            throw new IllegalArgumentException("Workout name cannot be empty");
+        }
+        if (date == null) {
+            throw new IllegalArgumentException("Date cannot be null");
+        }
         this.sessionId = sessionId;
         this.workoutId = workoutId;
         this.workoutName = workoutName;
@@ -25,14 +31,6 @@ public class WorkoutSession {
             throw new IllegalArgumentException("Set cannot be null");
         }
         sets.add(set);
-    }
-
-
-  if (workoutName == null || workoutName.isBlank()) {
-    throw new IllegalArgumentException("Workout name cannot be empty");
-    }
-  if (date == null) {
-    throw new IllegalArgumentException("Date cannot be null");
     }
 
     public boolean removeSet(SetEntry set) {
