@@ -40,7 +40,7 @@ public abstract class BaseController {
 
     @FXML
     public void onHistoryClicked(ActionEvent event) {
-        System.out.println("History screen coming soon"); // switchScreen once the screen exists
+        switchScreen("History-view");
     }
 
     @FXML
