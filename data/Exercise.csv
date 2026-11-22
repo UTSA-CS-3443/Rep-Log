@@ -1,13 +1,14 @@
-exerciseId,name,sets,reps
-1,Bench Press,3,10
-2,Incline Dumbbell Press,3,10
-3,Overhead Press,3,8
-4,Tricep Pushdown,3,12
-5,Barbell Row,3,10
-6,Lat Pulldown,3,10
-7,Bicep Curl,3,12
-8,Face Pull,3,15
-9,Squat,3,8
-10,Leg Press,3,10
-11,Romanian Deadlift,3,10
-12,Calf Raise,3,15
+exerciseId,name,sets,reps,weight
+1,Bench Press,3,10,135
+2,Incline Dumbbell Press,3,10,50
+3,Overhead Press,3,8,75
+4,Tricep Pushdown,3,12,40
+5,Barbell Row,3,10,115
+6,Lat Pulldown,3,10,100
+7,Bicep Curl,3,12,30
+8,Face Pull,3,15,30
+9,Squat,3,8,185
+10,Leg Press,3,10,270
+11,Romanian Deadlift,3,10,135
+12,Calf Raise,3,15,100
+
