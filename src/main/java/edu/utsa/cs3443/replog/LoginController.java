@@ -53,6 +53,6 @@ public class LoginController extends BaseController {
 
     @FXML
     public void onAddAccountClicked(ActionEvent event) {
-        System.out.println("Add account screen coming soon"); // switchScreen once the screen exists
+        switchScreen("AccountInfo-view");
     }
 }
