@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:controller="edu.utsa.cs3443.replog.HistoryController" prefHeight="600.0" prefWidth="900.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #141414;" styleClass="nav-bar" BorderPane.alignment="CENTER">
             <children>
@@ -17,7 +17,7 @@
                     </font>
                 </Label>
                 <Region prefHeight="60.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
-                <Button fx:id="homeButton" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="primary-button" text="Home" textFill="#e1b531">
+                <Button fx:id="homeButton" onAction="#onHomeClicked" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="primary-button" text="Home" textFill="#e1b531">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -25,7 +25,7 @@
                         <Insets right="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="historyButton" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="primary-button" text="History" textFill="#e1b531">
+                <Button fx:id="historyButton" onAction="#onHistoryClicked" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="primary-button" text="History" textFill="#e1b531">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -33,7 +33,7 @@
                         <Insets right="25.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="logoutButton" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="secondary-button" text="Logout" textFill="#e1b531">
+                <Button fx:id="logoutButton" onAction="#onLogoutClicked" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="secondary-button" text="Logout" textFill="#e1b531">
                     <font>
                         <Font size="14.0" />
                     </font>
