@@ -1,7 +1,7 @@
 package edu.utsa.cs3443.replog.model;
 
 public class User {
-    private string username;
+    private String username;
     private int userId;
     private String name;
     private String email;
@@ -9,9 +9,11 @@ public class User {
     private int age;
     private double startingWeight;
     
-    public User(int userId, String name, String email, String password, int age, double startingWeight) {
+    public User(int userId, String username, String name, String email, String password, int age, double startingWeight) {
         this.userId = userId;
         this.username = username;
+        this.name = name;
+        this.email = email;
         this.password = password;
         this.age = age;
         this.startingWeight = startingWeight;
@@ -38,8 +40,8 @@ public class User {
     }
 
    public boolean checkPassword(String attempt) {
-        return password.equals(attempt);
-    
+       return password.equals(attempt);
+   }
     public void updatePassword(String oldPassword, String newPassword) {
         if (!checkPassword(oldPassword)) {
             throw new IllegalArgumentException ("Password is incorrect");
@@ -47,7 +49,7 @@ public class User {
         if (newPassword == null || newPassword.length() < 6) {
             throw new IllegalArgumentException ("Password must be at least 6 characters");
         }
-        this.password = password;
+        this.password = newPassword;
     }
     
     public String viewAccount() {
@@ -56,14 +58,18 @@ public class User {
         + "Email: " + email + "\n";
     }
     
-       public int getUserid() {return userid;}
+    public int getUserId() {return userId;}
     
     public String getUsername() {return username;}
+
+    public String getName() { return name;}
+
+    public String getEmail(){ return email;}
     
     String getPassword() {return password;}
     
     public int getAge() {return age;}
     
-    public double getStartingweight() {return startingWeight;}
+    public double getStartingWeight() {return startingWeight;}
     
 }
