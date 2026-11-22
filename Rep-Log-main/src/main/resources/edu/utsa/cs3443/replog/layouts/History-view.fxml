@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #141414;" styleClass="nav-bar" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="logoImageView" fitHeight="59.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+                <Label prefHeight="43.0" prefWidth="125.0" styleClass="logo-text" text="RepLog" textFill="#e1b531">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                </Label>
+                <Region prefHeight="60.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="homeButton" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="primary-button" text="Home" textFill="#e1b531">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets right="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="historyButton" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="primary-button" text="History" textFill="#e1b531">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets right="25.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="logoutButton" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="secondary-button" text="Logout" textFill="#e1b531">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="6.0" style="-fx-background-color: #252525;">
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <children>
+                <Label fx:id="historyTitleLabel" styleClass="page-title" text="Users History" textFill="#e1b531">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+
+                <Label fx:id="historySubtitleLabel" styleClass="page-subtitle" text="Here is how you've done so far user!" textFill="#e1b531">
+                    <font>
+                        <Font name="System Italic" size="16.0" />
+                    </font>
+                </Label>
+
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: #323232; -fx-background-color: #323232; -fx-border-color: #e1b531;" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets top="16.0" />
+                    </VBox.margin>
+                    <content>
+                        <Label fx:id="statsLabel" alignment="TOP_LEFT" maxWidth="Infinity" style="-fx-background-color: #323232;" styleClass="stats-text" text="Loading your stats..." textFill="#e1b531" wrapText="true">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="16.0" left="20.0" right="20.0" top="16.0" />
+                            </padding>
+                        </Label>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
