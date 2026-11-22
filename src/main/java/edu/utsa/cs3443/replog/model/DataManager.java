@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,24 +15,33 @@ public class DataManager {
     private final String usersDataFilename;
     private User currentUser;
 
+    private ArrayList<WorkoutSession> sessions;
+    private ArrayList<int[]> history; // each entry is {userId, sessionId}
+    private final String sessionsDataFilename;
+    private final String setsDataFilename;
+    private final String historyDataFilename;
+
     private static DataManager instance;
 
     private DataManager() {
         users = new ArrayList<>();
         usersDataFilename = "data/Users.csv";
+
+        sessions = new ArrayList<>();
+        history = new ArrayList<>();
+        sessionsDataFilename = "data/WorkoutSession.csv";
+        setsDataFilename = "data/SessionSet.csv";
+        historyDataFilename = "data/UserHistory.csv";
     }
 
     public static DataManager getInstance() {
         if (instance == null) {
             instance = new DataManager();
             instance.loadUsersDataFromFile();
+            instance.loadSessionsDataFromFile();
         }
         return instance;
     }
-
-    /// /////////////////////////////////////////////////////////
-    /// User Methods
-    /// /////////////////////////////////////////////////////////
 
     public void loadUsersDataFromFile() {
         try {
@@ -151,6 +161,116 @@ public class DataManager {
             System.out.println("File created successfully!");
         } catch (IOException ex) {
             System.out.println("Error creating users file: " + ex.getMessage());
+        }
+    }
+
+    public void loadSessionsDataFromFile() {
+        sessions.clear();
+        history.clear();
+        try {
+            Scanner scanner = new Scanner(new File(sessionsDataFilename));
+            scanner.nextLine(); // skip header row
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] fields = line.split(",");
+                sessions.add(new WorkoutSession(Integer.parseInt(fields[0]),
+                        Integer.parseInt(fields[1]), fields[2], LocalDate.parse(fields[3])));
+            }
+            scanner.close();
+
+            scanner = new Scanner(new File(setsDataFilename));
+            scanner.nextLine(); // skip header row
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] fields = line.split(",");
+                WorkoutSession session = findSession(Integer.parseInt(fields[0]));
+                if (session != null) {
+                    session.addSet(new SetEntry(fields[1], Integer.parseInt(fields[2]),
+                            Integer.parseInt(fields[3]), Double.parseDouble(fields[4])));
+                }
+            }
+            scanner.close();
+
+            scanner = new Scanner(new File(historyDataFilename));
+            scanner.nextLine(); // skip header row
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] fields = line.split(",");
+                history.add(new int[]{Integer.parseInt(fields[0]), Integer.parseInt(fields[1])});
+            }
+            scanner.close();
+        } catch (FileNotFoundException fnfEx) {
+            System.out.println("History file not found: " + fnfEx.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error reading history files: " + e.getMessage());
+        }
+    }
+
+    public WorkoutSession findSession(int sessionId) {
+        for (WorkoutSession session : sessions) {
+            if (session.getSessionId() == sessionId) {
+                return session;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<WorkoutSession> getSessionsForUser(int userId) {
+        ArrayList<WorkoutSession> result = new ArrayList<>();
+        for (int[] link : history) {
+            if (link[0] == userId) {
+                WorkoutSession session = findSession(link[1]);
+                if (session != null) {
+                    result.add(session);
+                }
+            }
+        }
+        return result;
+    }
+
+    public int getNextSessionId() {
+        int maxId = 0;
+        for (WorkoutSession session : sessions) {
+            if (session.getSessionId() > maxId) {
+                maxId = session.getSessionId();
+            }
+        }
+        return maxId + 1;
+    }
+
+    public void saveSession(WorkoutSession session, int userId) {
+        sessions.add(session);
+        history.add(new int[]{userId, session.getSessionId()});
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(sessionsDataFilename, true));
+            bw.write(session.getSessionId() + "," + session.getWorkoutId() + ","
+                    + session.getWorkoutName() + "," + session.getDate());
+            bw.newLine();
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(setsDataFilename, true));
+            for (SetEntry set : session.getSets()) {
+                bw.write(session.getSessionId() + "," + set.getExerciseName() + ","
+                        + set.getSetNumber() + "," + set.getReps() + "," + set.getWeight());
+                bw.newLine();
+            }
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(historyDataFilename, true));
+            bw.write(userId + "," + session.getSessionId());
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving session: " + e.getMessage());
         }
     }
 }
