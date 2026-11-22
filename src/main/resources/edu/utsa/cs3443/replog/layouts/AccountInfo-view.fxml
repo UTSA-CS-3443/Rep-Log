@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #141414; -fx-border-color: #e1b531;" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:controller="edu.utsa.cs3443.replog.AccountInfoController" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #141414; -fx-border-color: #e1b531;" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="542.0" prefHeight="617.0" prefWidth="542.0" spacing="8.0" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="form-card">
+        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="640.0" prefWidth="640.0" spacing="8.0" style="-fx-background-color: #252525; -fx-border-color: #e1b531;" styleClass="form-card">
             <padding>
                 <Insets bottom="28.0" left="28.0" right="28.0" top="20.0" />
             </padding>
@@ -29,60 +29,94 @@
                     </VBox.margin>
                 </Label>
 
-                <VBox alignment="CENTER_LEFT" spacing="4.0">
+                <HBox spacing="20.0">
                     <children>
-                        <Label styleClass="field-label" text="Name" textFill="#e1b531">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="nameField" promptText="Enter your name" style="-fx-background-color: #323232; -fx-text-fill: white;" />
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="field-label" text="Username" textFill="#e1b531">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="usernameField" promptText="Choose a username" style="-fx-background-color: #323232; -fx-text-fill: white; -fx-prompt-text-fill: #9a9a9a;" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="field-label" text="Email" textFill="#e1b531">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="emailField" promptText="Enter your email" style="-fx-background-color: #323232; -fx-text-fill: white; -fx-prompt-text-fill: #9a9a9a;" />
+                            </children>
+                        </VBox>
                     </children>
-                </VBox>
-                <VBox alignment="CENTER_LEFT" spacing="4.0">
-                    <children>
-                        <Label styleClass="field-label" text="Age" textFill="#e1b531">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="ageField" promptText="Enter your age" style="-fx-background-color: #323232; -fx-text-fill: white;" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER_LEFT" spacing="4.0">
-                    <children>
-                        <Label styleClass="field-label" text="Starting Weight (lbs)" textFill="#e1b531">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="startingWeightField" promptText="Enter your starting weight" style="-fx-background-color: #323232; -fx-text-fill: white;" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER_LEFT" spacing="4.0">
-                    <children>
-                        <Label styleClass="field-label" text="Password" textFill="#e1b531">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <PasswordField fx:id="passwordField" promptText="Create a password" style="-fx-background-color: #323232; -fx-text-fill: white;" />
-                    </children>
-                </VBox>
+                </HBox>
 
-                <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" />
+                <HBox spacing="20.0">
+                    <children>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="field-label" text="Name" textFill="#e1b531">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="nameField" promptText="Enter your name" style="-fx-background-color: #323232; -fx-text-fill: white; -fx-prompt-text-fill: #9a9a9a;" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="field-label" text="Age" textFill="#e1b531">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="ageField" promptText="Enter your age" style="-fx-background-color: #323232; -fx-text-fill: white; -fx-prompt-text-fill: #9a9a9a;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
 
-                <Button fx:id="saveButton" defaultButton="true" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e1b531;" styleClass="primary-button" text="Save" textFill="#e1b531">
+                <HBox spacing="20.0">
+                    <children>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="field-label" text="Starting Weight (lbs)" textFill="#e1b531">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="startingWeightField" promptText="Enter your starting weight" style="-fx-background-color: #323232; -fx-text-fill: white; -fx-prompt-text-fill: #9a9a9a;" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="field-label" text="Password" textFill="#e1b531">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <PasswordField fx:id="passwordField" promptText="Create a password" style="-fx-background-color: #323232; -fx-text-fill: white; -fx-prompt-text-fill: #9a9a9a;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <Label fx:id="errorLabel" styleClass="error-label" textFill="#e05252" wrapText="true" />
+
+                <Button fx:id="saveButton" onAction="#onSaveClicked" defaultButton="true" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e1b531;" styleClass="primary-button" text="Save" textFill="#e1b531">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="cancelButton" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e1b531;" styleClass="secondary-button" text="Cancel" textFill="#e1b531">
+                <Button fx:id="cancelButton" onAction="#onCancelClicked" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e1b531;" styleClass="secondary-button" text="Cancel" textFill="#e1b531">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="deleteButton" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: e05252;" styleClass="secondary-button" text="Delete" textFill="#e05252">
+                <Button fx:id="deleteButton" maxWidth="250.0" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e05252;" styleClass="secondary-button" text="Delete" textFill="#e05252">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
