@@ -22,16 +22,19 @@ public class HomeScreenController extends BaseController {
 
     @FXML
     void onPushClicked(ActionEvent event) {
-        System.out.println("Push workout screen coming soon");
+        dataManager.setCurrentCategory("Push");
+        switchScreen("myWorkouts-view");
     }
 
     @FXML
     void onPullClicked(ActionEvent event) {
-        System.out.println("Pull workout screen coming soon");
+        dataManager.setCurrentCategory("Pull");
+        switchScreen("myWorkouts-view");
     }
 
     @FXML
     void onLegsClicked(ActionEvent event) {
-        System.out.println("Legs workout screen coming soon");
+        dataManager.setCurrentCategory("Legs");
+        switchScreen("myWorkouts-view");
     }
 }
