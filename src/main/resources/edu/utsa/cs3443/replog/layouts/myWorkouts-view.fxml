@@ -58,7 +58,7 @@
                     </font>
                 </Label>
 
-                <Button fx:id="addWorkoutButton" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e1b531;" styleClass="primary-button" text="+ Add Workout" textFill="#e1b531">
+                <Button fx:id="addExerciseButton" onAction="#onAddExerciseClicked" mnemonicParsing="false" style="-fx-background-color: #323232; -fx-border-color: #e1b531;" styleClass="primary-button" text="+ Add Exercise" textFill="#e1b531">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>

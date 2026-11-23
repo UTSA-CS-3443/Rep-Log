@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AddExerciseController extends BaseController {
+
     @FXML private TextField nameField;
     @FXML private TextField setsField;
     @FXML private TextField repsField;
@@ -41,14 +42,17 @@ public class AddExerciseController extends BaseController {
 
     @FXML
     private void onSaveClicked() {
+        String name = nameField.getText().trim();
+        if (name.contains(",")) {
+            errorLabel.setText("Exercise name can't contain commas.");
+            return;
+        }
+
         Exercise exercise;
         try {
             int sets = Integer.parseInt(setsField.getText().trim());
             int reps = Integer.parseInt(repsField.getText().trim());
-            int nextId = workout.getExercises().stream()
-                    .mapToInt(Exercise::getExerciseId)
-                    .max().orElse(0) + 1;
-            exercise = new Exercise(nextId, nameField.getText(), sets, reps, 0.0);
+            exercise = new Exercise(dataManager.getNextExerciseId(), name, sets, reps, 0.0);
         } catch (NumberFormatException e) {
             errorLabel.setText("Sets and reps must be whole numbers.");
             return;
@@ -57,7 +61,7 @@ public class AddExerciseController extends BaseController {
             return;
         }
 
-        workout.addExercise(exercise);
+        dataManager.addExerciseToWorkout(workout, exercise);
         stage.setScene(previousScene);
         onExerciseAdded.run();
     }

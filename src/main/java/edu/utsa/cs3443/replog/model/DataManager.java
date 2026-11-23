@@ -386,6 +386,36 @@ public class DataManager {
         return result;
     }
 
+    public int getNextExerciseId() {
+        int maxId = 0;
+        for (Exercise exercise : exercises) {
+            if (exercise.getExerciseId() > maxId) {
+                maxId = exercise.getExerciseId();
+            }
+        }
+        return maxId + 1;
+    }
+
+    public void addExerciseToWorkout(Workout workout, Exercise exercise) {
+        exercises.add(exercise);
+        workout.addExercise(exercise);
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(exercisesDataFilename, true));
+            bw.write(exercise.getExerciseId() + "," + exercise.getName() + ","
+                    + exercise.getTargetSets() + "," + exercise.getTargetReps() + ","
+                    + exercise.getTargetWeight());
+            bw.newLine();
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(workoutExercisesDataFilename, true));
+            bw.write(workout.getWorkoutId() + "," + exercise.getExerciseId());
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving exercise: " + e.getMessage());
+        }
+    }
+
     public void setCurrentCategory(String category) {
         currentCategory = category;
     }
