@@ -16,10 +16,18 @@ public class DataManager {
     private User currentUser;
 
     private ArrayList<WorkoutSession> sessions;
-    private ArrayList<int[]> history; // each entry is {userId, sessionId}
+    private ArrayList<int[]> history;
     private final String sessionsDataFilename;
     private final String setsDataFilename;
     private final String historyDataFilename;
+
+    private ArrayList<Exercise> exercises;
+    private ArrayList<Workout> workouts;
+    private final String exercisesDataFilename;
+    private final String workoutsDataFilename;
+    private final String workoutExercisesDataFilename;
+    private String currentCategory;
+    private Workout currentWorkout;
 
     private static DataManager instance;
 
@@ -32,6 +40,12 @@ public class DataManager {
         sessionsDataFilename = "data/WorkoutSession.csv";
         setsDataFilename = "data/SessionSet.csv";
         historyDataFilename = "data/UserHistory.csv";
+
+        exercises = new ArrayList<>();
+        workouts = new ArrayList<>();
+        exercisesDataFilename = "data/Exercise.csv";
+        workoutsDataFilename = "data/Workout.csv";
+        workoutExercisesDataFilename = "data/WorkoutExercise.csv";
     }
 
     public static DataManager getInstance() {
@@ -39,6 +53,8 @@ public class DataManager {
             instance = new DataManager();
             instance.loadUsersDataFromFile();
             instance.loadSessionsDataFromFile();
+            instance.loadExercisesDataFromFile();
+            instance.loadWorkoutsDataFromFile();
         }
         return instance;
     }
@@ -46,7 +62,7 @@ public class DataManager {
     public void loadUsersDataFromFile() {
         try {
             Scanner scanner = new Scanner(new File(usersDataFilename));
-            scanner.nextLine(); // skip header row
+            scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 User user = convertLineToUserObject(line, ",");
@@ -169,7 +185,7 @@ public class DataManager {
         history.clear();
         try {
             Scanner scanner = new Scanner(new File(sessionsDataFilename));
-            scanner.nextLine(); // skip header row
+            scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.isBlank()) {
@@ -182,7 +198,7 @@ public class DataManager {
             scanner.close();
 
             scanner = new Scanner(new File(setsDataFilename));
-            scanner.nextLine(); // skip header row
+            scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.isBlank()) {
@@ -198,7 +214,7 @@ public class DataManager {
             scanner.close();
 
             scanner = new Scanner(new File(historyDataFilename));
-            scanner.nextLine(); // skip header row
+            scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.isBlank()) {
@@ -272,5 +288,117 @@ public class DataManager {
         } catch (IOException e) {
             System.out.println("Error saving session: " + e.getMessage());
         }
+    }
+
+    public void loadExercisesDataFromFile() {
+        exercises.clear();
+        try {
+            Scanner scanner = new Scanner(new File(exercisesDataFilename));
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] fields = line.split(",");
+                exercises.add(new Exercise(Integer.parseInt(fields[0]), fields[1],
+                        Integer.parseInt(fields[2]), Integer.parseInt(fields[3]),
+                        Double.parseDouble(fields[4])));
+            }
+            scanner.close();
+        } catch (FileNotFoundException fnfEx) {
+            System.out.println("Exercise file not found: " + fnfEx.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error reading exercises file: " + e.getMessage());
+        }
+    }
+
+    public void loadWorkoutsDataFromFile() {
+        workouts.clear();
+        try {
+            Scanner scanner = new Scanner(new File(workoutsDataFilename));
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] fields = line.split(",");
+                workouts.add(new Workout(Integer.parseInt(fields[0]), fields[1], fields[2]));
+            }
+            scanner.close();
+
+            scanner = new Scanner(new File(workoutExercisesDataFilename));
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] fields = line.split(",");
+                Workout workout = findWorkout(Integer.parseInt(fields[0]));
+                Exercise exercise = findExercise(Integer.parseInt(fields[1]));
+                if (workout != null && exercise != null) {
+                    workout.addExercise(exercise);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException fnfEx) {
+            System.out.println("Workout file not found: " + fnfEx.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error reading workouts files: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<Exercise> getExercisesList() {
+        return exercises;
+    }
+
+    public ArrayList<Workout> getWorkoutsList() {
+        return workouts;
+    }
+
+    public Exercise findExercise(int exerciseId) {
+        for (Exercise exercise : exercises) {
+            if (exercise.getExerciseId() == exerciseId) {
+                return exercise;
+            }
+        }
+        return null;
+    }
+
+    public Workout findWorkout(int workoutId) {
+        for (Workout workout : workouts) {
+            if (workout.getWorkoutId() == workoutId) {
+                return workout;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Workout> getWorkoutsByCategory(String category) {
+        ArrayList<Workout> result = new ArrayList<>();
+        for (Workout workout : workouts) {
+            if (workout.getCategory().equalsIgnoreCase(category)) {
+                result.add(workout);
+            }
+        }
+        return result;
+    }
+
+    public void setCurrentCategory(String category) {
+        currentCategory = category;
+    }
+
+    public String getCurrentCategory() {
+        return currentCategory;
+    }
+
+    public void setCurrentWorkout(Workout workout) {
+        currentWorkout = workout;
+    }
+
+    public Workout getCurrentWorkout() {
+        return currentWorkout;
     }
 }
