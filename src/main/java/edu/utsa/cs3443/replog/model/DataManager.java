@@ -416,6 +416,23 @@ public class DataManager {
         }
     }
 
+    public void saveExercisesToFile() {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(exercisesDataFilename));
+            bw.write("exerciseId,name,sets,reps,weight");
+            bw.newLine();
+            for (Exercise exercise : exercises) {
+                bw.write(exercise.getExerciseId() + "," + exercise.getName() + ","
+                        + exercise.getTargetSets() + "," + exercise.getTargetReps() + ","
+                        + exercise.getTargetWeight());
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving exercises file: " + e.getMessage());
+        }
+    }
+
     public void setCurrentCategory(String category) {
         currentCategory = category;
     }
