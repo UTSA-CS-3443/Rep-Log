@@ -7,11 +7,13 @@ import java.util.Objects;
 public class Workout {
     private final int workoutId;
     private final String name;
+    private final String category;
     private final ArrayList<Exercise> exercises = new ArrayList<>();
 
-    public Workout(int workoutId, String name) {
+    public Workout(int workoutId, String name, String category) {
         this.workoutId = workoutId;
         this.name = name;
+        this.category = category;
     }
 
     public int getWorkoutId() {
@@ -20,6 +22,10 @@ public class Workout {
 
     public String getName() {
         return name;
+    }
+
+    public String getCategory(){
+        return category;
     }
 
     public List<Exercise> getExercises() {
