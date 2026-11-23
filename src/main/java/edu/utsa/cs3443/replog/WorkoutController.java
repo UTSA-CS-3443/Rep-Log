@@ -5,6 +5,7 @@ import edu.utsa.cs3443.replog.model.Exercise;
 import edu.utsa.cs3443.replog.model.SetEntry;
 import edu.utsa.cs3443.replog.model.Workout;
 import edu.utsa.cs3443.replog.model.WorkoutSession;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -82,8 +85,25 @@ public class WorkoutController extends BaseController {
         infoLabel.setTextFill(Color.web("#a8a8a8"));
         infoLabel.setFont(Font.font(16));
 
-        row.getChildren().addAll(checkBox, infoLabel);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Button editButton = new Button("Edit");
+        editButton.setTextFill(Color.web("#e1b531"));
+        editButton.setFont(Font.font("System", FontWeight.BOLD, 14));
+        editButton.setStyle("-fx-background-color: #323232; -fx-border-color: #e1b531;");
+        editButton.setOnAction(event -> openEditScreen(exercise));
+
+        row.getChildren().addAll(checkBox, infoLabel, spacer, editButton);
         return row;
+    }
+
+    private void openEditScreen(Exercise exercise) {
+        try {
+            EditExerciseController.show(stage, exercise, () -> loadData());
+        } catch (IOException e) {
+            System.out.println("Could not open the edit exercise screen: " + e.getMessage());
+        }
     }
 
     private String formatInfo(Exercise exercise) {
