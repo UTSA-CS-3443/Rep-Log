@@ -3,6 +3,7 @@ package edu.utsa.cs3443.replog;
 import edu.utsa.cs3443.replog.model.DataManager;
 import edu.utsa.cs3443.replog.model.Exercise;
 import edu.utsa.cs3443.replog.model.Workout;
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -20,12 +21,13 @@ public class MyWorkoutsController extends BaseController {
     @FXML private Label categoryTitleLabel;
     @FXML private Label emptyLabel;
     @FXML private VBox workoutList;
-    @FXML private Button addWorkoutButton;
+    @FXML private Button addExerciseButton;
     @FXML private Button startWorkoutButton;
 
     private ArrayList<Workout> shownWorkouts;
     private ArrayList<HBox> rows;
     private Workout selectedWorkout;
+    private int selectedIndex;
 
     @FXML
     public void initialize() {
@@ -33,15 +35,13 @@ public class MyWorkoutsController extends BaseController {
         shownWorkouts = new ArrayList<>();
         rows = new ArrayList<>();
         selectedWorkout = null;
+        selectedIndex = 0;
         loadData();
     }
 
     public void loadData() {
         String category = dataManager.getCurrentCategory();
         categoryTitleLabel.setText(category + " Workouts");
-
-        addWorkoutButton.setVisible(false);
-        addWorkoutButton.setManaged(false);
 
         workoutList.getChildren().clear();
         rows.clear();
@@ -51,19 +51,24 @@ public class MyWorkoutsController extends BaseController {
             emptyLabel.setVisible(true);
             emptyLabel.setManaged(true);
             startWorkoutButton.setDisable(true);
+            addExerciseButton.setDisable(true);
             return;
         }
 
         emptyLabel.setVisible(false);
         emptyLabel.setManaged(false);
         startWorkoutButton.setDisable(false);
+        addExerciseButton.setDisable(false);
 
         for (int i = 0; i < shownWorkouts.size(); i++) {
             HBox row = buildRow(shownWorkouts.get(i), i);
             rows.add(row);
             workoutList.getChildren().add(row);
         }
-        selectWorkout(0);
+        if (selectedIndex >= shownWorkouts.size()) {
+            selectedIndex = 0;
+        }
+        selectWorkout(selectedIndex);
     }
 
     private HBox buildRow(Workout workout, int index) {
@@ -94,6 +99,7 @@ public class MyWorkoutsController extends BaseController {
     }
 
     private void selectWorkout(int index) {
+        selectedIndex = index;
         selectedWorkout = shownWorkouts.get(index);
         for (int i = 0; i < rows.size(); i++) {
             if (i == index) {
@@ -103,6 +109,18 @@ public class MyWorkoutsController extends BaseController {
                 rows.get(i).setStyle("-fx-background-color: #323232; "
                         + "-fx-border-color: #5a5a5a;");
             }
+        }
+    }
+
+    @FXML
+    protected void onAddExerciseClicked() {
+        if (selectedWorkout == null) {
+            return;
+        }
+        try {
+            AddExerciseController.show(stage, selectedWorkout, () -> loadData());
+        } catch (IOException e) {
+            System.out.println("Could not open the add exercise screen: " + e.getMessage());
         }
     }
 
